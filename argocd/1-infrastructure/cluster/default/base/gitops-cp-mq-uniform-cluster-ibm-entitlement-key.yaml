@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitops-cp-mq-uniform-cluster-ibm-entitlement-key
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    namespace: gitops-cp-mq-uniform-cluster
+    server: https://kubernetes.default.svc
+  project: 1-infrastructure
+  source:
+    path: >-
+      payload/1-infrastructure/namespace/gitops-cp-mq-uniform-cluster/ibm-entitlement-key
+    repoURL: >-
+      https://github.com/cloud-native-toolkit-test/gitops-cp-mq-uniform-cluster-ocp4_cp4i.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  ignoreDifferences: []
